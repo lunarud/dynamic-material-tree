@@ -1,0 +1,51 @@
+.mat-tree {
+  /* Styles for the tree container */
+}
+
+.mat-tree-node {
+  /* Styles for the tree nodes */
+}
+
+.mat-tree-node-content {
+  /* Styles for the content of the tree nodes */
+}
+
+.mat-tree-node-toggle {
+  /* Styles for the toggle button that expands and collapses the tree nodes */
+}
+
+.mat-tree-node-children {
+  /* Styles for the children of the tree nodes */
+}
+
+.mat-tree-node-expand {
+  /* Styles for the expand icon */
+}
+
+.mat-tree-node-collapse {
+  /* Styles for the collapse icon */
+}
+
+.mat-tree-node-leaf {
+  /* Styles for the leaf nodes of the tree */
+}
+
+.mat-tree-node-selected {
+  /* Styles for the selected tree nodes */
+}
+
+.mat-tree-node-focused {
+  /* Styles for the focused tree nodes */
+}
+
+.mat-tree-node-disabled {
+  /* Styles for the disabled tree nodes */
+}
+
+.mat-tree-node-active {
+  /* Styles for the active tree nodes */
+}
+
+.mat-tree-node-hover {
+  /* Styles for the tree nodes when they are hovered over */
+}
