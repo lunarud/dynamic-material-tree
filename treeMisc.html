@@ -1,0 +1,138 @@
+https://github.com/pgrabovets/json-view/
+https://github.com/Mohammed9531/angular-checkbox-tree-grid
+https://mohammed9531.github.io/angular-checkbox-tree-grid/demo/index.html
+
+https://github.com/mlrv/ng-material-treetable
+
+https://angularscript.com/angular-material-tree-table-component/
+
+https://www.geeksforgeeks.org/angular-material-tree/
+
+CSS
+table {
+  width: 100%;
+}
+
+
+HTML
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> 
+      <span [style.paddingLeft.px]="40"> Name </span>
+    </th>
+    <td mat-cell *matCellDef="let data"> 
+      <button mat-icon-button 
+              [style.visibility]="!data.expandable ? 'hidden' : ''"
+              [style.marginLeft.px]="data.level * 32"
+              (click)="treeControl.toggle(data)">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(data) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+
+      {{data.name}}
+    </td>
+  </ng-container> 
+
+  <ng-container matColumnDef="count">
+    <th mat-header-cell *matHeaderCellDef> Count </th>
+    <td mat-cell *matCellDef="let data"> {{data.count}} </td>
+  </ng-container> 
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+
+SCRIPT
+
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {Component} from '@angular/core';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+
+interface FoodNode {
+  name: string;
+  count?: number;
+  children?: FoodNode[];
+}
+
+const TREE_DATA: FoodNode[] = [
+  {
+    name: 'Fruit',
+    children: [
+      {name: 'Apple', count: 10},
+      {name: 'Banana', count: 20},
+      {name: 'Fruit loops', count: 30},
+    ]
+  }, {
+    name: 'Vegetables',
+    children: [
+      {
+        name: 'Green',
+        children: [
+          {name: 'Broccoli', count: 10},
+          {name: 'Brussel sprouts', count: 20},
+        ]
+      }, {
+        name: 'Orange',
+        children: [
+          {name: 'Pumpkins', count: 30},
+          {name: 'Carrots', count: 40},
+        ]
+      },
+    ]
+  },
+];
+
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  count: number;
+  level: number;
+}
+
+/**
+ * @title Basic use of `<table mat-table>`
+ */
+@Component({
+  selector: 'table-basic-example',
+  styleUrls: ['table-basic-example.css'],
+  templateUrl: 'table-basic-example.html',
+})
+export class TableBasicExample {
+  displayedColumns: string[] = ['name', 'count'];
+  
+  private transformer = (node: FoodNode, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      count: node.count,
+      level: level,
+    };
+  }
+
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+      node => node.level, node => node.expandable);
+
+  treeFlattener = new MatTreeFlattener(
+      this.transformer, node => node.level, 
+      node => node.expandable, node => node.children);
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+  constructor() {
+    this.dataSource.data = TREE_DATA;
+  }
+
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+}
+
+
+/**  Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license */
